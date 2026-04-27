@@ -85,12 +85,12 @@ export default function Contact() {
           </p>
 
           <a
-            href="mailto:alex@vfxartist.com"
+            href="mailto:hailuong.vfx@gmail.com"
             className="group inline-flex items-center gap-3 text-lg text-text-primary relative rounded-full px-8 py-4 border-2 border-accent/50 hover:border-accent transition-all duration-300"
           >
             <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
             <Mail size={20} className="text-accent" />
-            <span className="relative z-10">alex@vfxartist.com</span>
+            <span className="relative z-10">hailuong.vfx@gmail.com</span>
           </a>
         </motion.div>
 
@@ -115,9 +115,9 @@ export default function Contact() {
 
             {/* Copyright */}
             <div className="flex items-center gap-6 text-xs text-muted">
-              <span>&copy; 2026 Alex Chen</span>
+              <span>&copy; 2026 Hai Luong</span>
               <span className="w-1 h-1 rounded-full bg-stroke" />
-              <span>VFX Artist</span>
+              <span>VFX Compositor</span>
             </div>
 
             {/* Available status */}

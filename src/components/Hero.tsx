@@ -55,15 +55,15 @@ export default function Hero() {
         </p>
 
         <h1 className="name-reveal text-6xl md:text-8xl lg:text-[10rem] font-display leading-[0.9] tracking-wide text-text-primary mb-6 text-glow">
-          ALEX CHEN
+          HAI LUONG
         </h1>
 
         <p className="blur-in text-base md:text-lg text-muted mb-4 max-w-xl">
-          Crafting visual magic for <span className="text-accent">film</span>, <span className="text-accent">commercials</span>, and <span className="text-accent">games</span>
+          VFX Compositor based in <span className="text-accent">Ho Chi Minh City</span>
         </p>
 
         <p className="blur-in text-sm text-muted/70 max-w-md mb-12">
-          Specializing in FX simulations, compositing, and photorealistic environments. 
+          5 years of experience in compositing, matchmoving, and visual effects. 
           Bringing imagination to life frame by frame.
         </p>
 

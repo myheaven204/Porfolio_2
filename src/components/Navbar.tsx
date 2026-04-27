@@ -46,7 +46,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
         >
           <div className="absolute inset-0 bg-accent opacity-100 group-hover:opacity-90 transition-opacity duration-300" />
           <span className="relative z-10 font-display text-sm text-bg-deep tracking-wider">
-            AC
+            HL
           </span>
         </button>
 
@@ -73,7 +73,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
 
         {/* Hire me button */}
         <a
-          href="mailto:alex@vfxartist.com"
+          href="mailto:hailuong.vfx@gmail.com"
           className="relative text-xs sm:text-sm rounded-full px-4 py-2 bg-accent text-bg-deep font-medium hover:bg-accent-light transition-colors duration-300"
         >
           Hire Me
