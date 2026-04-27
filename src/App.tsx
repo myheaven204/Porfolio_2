@@ -10,6 +10,7 @@ import Skills from './components/Skills';
 import Clients from './components/Clients';
 import About from './components/About';
 import Contact from './components/Contact';
+import ParticleBackground from './components/ParticleBackground';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -51,6 +52,7 @@ function App() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
+          <ParticleBackground />
           <Navbar activeSection={activeSection} />
           <main>
             <Hero />
