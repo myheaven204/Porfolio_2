@@ -13,6 +13,7 @@ const CATEGORIES: { label: Category; icon: React.ReactNode }[] = [
 
 const PROJECTS = [
   {
+    id: 'stellar-odyssey',
     title: 'Stellar Odyssey',
     category: 'Film' as Category,
     role: 'Lead FX Artist',
@@ -21,6 +22,7 @@ const PROJECTS = [
     description: 'Epic space adventure with massive destruction sequences and nebula environments.',
   },
   {
+    id: 'aether-dynamics',
     title: 'Aether Dynamics',
     category: 'Commercial' as Category,
     role: 'Compositing Lead',
@@ -29,6 +31,7 @@ const PROJECTS = [
     description: 'High-end automotive commercial with fluid simulations and particle systems.',
   },
   {
+    id: 'neon-horizon',
     title: 'Neon Horizon',
     category: 'Game' as Category,
     role: 'Cinematic VFX',
@@ -37,6 +40,7 @@ const PROJECTS = [
     description: 'Cyberpunk game cinematics featuring holographic effects and neon environments.',
   },
   {
+    id: 'the-last-signal',
     title: 'The Last Signal',
     category: 'Film' as Category,
     role: 'Environment TD',
@@ -45,6 +49,7 @@ const PROJECTS = [
     description: 'Sci-fi thriller with alien planet environments and atmospheric effects.',
   },
   {
+    id: 'quantum-drive',
     title: 'Quantum Drive',
     category: 'Commercial' as Category,
     role: 'FX Supervisor',
@@ -53,6 +58,7 @@ const PROJECTS = [
     description: 'Tech product launch with abstract particle simulations and light trails.',
   },
   {
+    id: 'phantom-protocol',
     title: 'Phantom Protocol',
     category: 'Game' as Category,
     role: 'VFX Artist',
@@ -61,6 +67,7 @@ const PROJECTS = [
     description: 'Action game with explosive effects, magic systems, and environmental destruction.',
   },
   {
+    id: 'crimson-eclipse',
     title: 'Crimson Eclipse',
     category: 'Film' as Category,
     role: 'Senior FX Artist',
@@ -69,6 +76,7 @@ const PROJECTS = [
     description: 'Fantasy epic featuring fire and water simulations with magical creatures.',
   },
   {
+    id: 'aurora-motors',
     title: 'Aurora Motors',
     category: 'Commercial' as Category,
     role: 'Lead Compositor',
@@ -77,6 +85,7 @@ const PROJECTS = [
     description: 'Luxury car reveal with dynamic lighting, reflections, and environment integration.',
   },
   {
+    id: 'echoes-of-war',
     title: 'Echoes of War',
     category: 'Game' as Category,
     role: 'FX Lead',
@@ -85,6 +94,7 @@ const PROJECTS = [
     description: 'Military FPS cinematics with realistic explosions and debris simulations.',
   },
   {
+    id: 'nebula-rising',
     title: 'Nebula Rising',
     category: 'Film' as Category,
     role: 'FX Artist',
@@ -93,6 +103,7 @@ const PROJECTS = [
     description: 'Space opera with volumetric nebulae, asteroid fields, and ship destruction.',
   },
   {
+    id: 'titan-energy',
     title: 'Titan Energy',
     category: 'Commercial' as Category,
     role: 'VFX Artist',
@@ -101,6 +112,7 @@ const PROJECTS = [
     description: 'Energy drink commercial with electric arcs, plasma effects, and speed trails.',
   },
   {
+    id: 'realm-of-shadows',
     title: 'Realm of Shadows',
     category: 'Game' as Category,
     role: 'Cinematic Artist',
@@ -109,6 +121,7 @@ const PROJECTS = [
     description: 'Dark fantasy game with smoke, fog, and ethereal magic effects.',
   },
   {
+    id: 'arctic-expedition',
     title: 'Arctic Expedition',
     category: 'Film' as Category,
     role: 'Environment FX',
@@ -117,6 +130,7 @@ const PROJECTS = [
     description: 'Survival thriller with blizzard simulations, ice fracturing, and aurora effects.',
   },
   {
+    id: 'velocity-x',
     title: 'Velocity X',
     category: 'Commercial' as Category,
     role: 'Motion Graphics',
@@ -125,6 +139,7 @@ const PROJECTS = [
     description: 'Sports brand campaign with dynamic motion trails and impact effects.',
   },
   {
+    id: 'eternal-conquest',
     title: 'Eternal Conquest',
     category: 'Game' as Category,
     role: 'Senior VFX',
@@ -133,6 +148,7 @@ const PROJECTS = [
     description: 'Strategy game cinematics with large-scale battle effects and magic systems.',
   },
   {
+    id: 'deep-impact',
     title: 'Deep Impact',
     category: 'Film' as Category,
     role: 'Destruction FX',
@@ -141,6 +157,7 @@ const PROJECTS = [
     description: 'Disaster film with building collapses, floods, and pyrotechnic simulations.',
   },
   {
+    id: 'luxe-cosmetics',
     title: 'Luxe Cosmetics',
     category: 'Commercial' as Category,
     role: 'Beauty VFX',
@@ -149,6 +166,7 @@ const PROJECTS = [
     description: 'High-end beauty campaign with liquid simulations and product visualization.',
   },
   {
+    id: 'cyber-nexus',
     title: 'Cyber Nexus',
     category: 'Game' as Category,
     role: 'Tech VFX',
@@ -174,9 +192,10 @@ export default function Projects() {
   const displayedProjects = filteredProjects.slice(0, visibleCount);
   const hasMore = visibleCount < filteredProjects.length;
 
-  const handleCategoryChange = (category: Category) => {
-    setActiveCategory(category);
-    setVisibleCount(ITEMS_PER_PAGE);
+  const handleViewProject = (projectId: string) => {
+    // Open project detail page in new tab
+    const projectDetailUrl = `${window.location.origin}/project-detail.html?id=${projectId}`;
+    window.open(projectDetailUrl, '_blank');
   };
 
   const loadMore = () => {
@@ -330,28 +349,21 @@ export default function Projects() {
                   />
                   
                   {/* View button with magnetic effect */}
-                  <motion.div 
-                    className="absolute inset-0 flex items-center justify-center"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ 
-                      opacity: hoveredIndex === i ? 1 : 0,
-                      scale: hoveredIndex === i ? 1 : 0.5
-                    }}
-                    transition={{ duration: 0.3, type: 'spring', bounce: 0.4 }}
+                  <motion.button
+                    onClick={() => handleViewProject(project.id)}
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-bg-deep font-medium text-sm cursor-pointer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    type="button"
                   >
-                    <motion.div 
-                      className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-bg-deep font-medium text-sm"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
+                    View Project 
+                    <motion.span
+                      animate={{ x: hoveredIndex === i ? [0, 4, 0] : 0 }}
+                      transition={{ duration: 0.6, repeat: Infinity }}
                     >
-                      View Project 
-                      <motion.span
-                        animate={{ x: hoveredIndex === i ? [0, 4, 0] : 0 }}
-                        transition={{ duration: 0.6, repeat: Infinity }}
-                      >
-                        <ArrowUpRight size={14} />
-                      </motion.span>
-                    </motion.div>
+                      <ArrowUpRight size={14} />
+                    </motion.span>
+                  </motion.button>
                   </motion.div>
 
                   {/* Animated border on hover */}
