@@ -1,21 +1,167 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { ArrowUpRight, Film, Tv, Gamepad2, ChevronDown } from 'lucide-react';
-import { PROJECTS } from '../data/projects';
 
-type FilterCategory = 'All' | 'Film' | 'Commercial' | 'Game';
+type Category = 'All' | 'Film' | 'Commercial' | 'Game';
 
-const CATEGORIES: { label: FilterCategory; icon: React.ReactNode }[] = [
+const CATEGORIES: { label: Category; icon: React.ReactNode }[] = [
   { label: 'All', icon: null },
   { label: 'Film', icon: <Film size={14} /> },
   { label: 'Commercial', icon: <Tv size={14} /> },
   { label: 'Game', icon: <Gamepad2 size={14} /> },
 ];
 
+const PROJECTS = [
+  {
+    title: 'Stellar Odyssey',
+    category: 'Film' as Category,
+    role: 'Lead FX Artist',
+    image: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800&q=80',
+    year: '2026',
+    description: 'Epic space adventure with massive destruction sequences and nebula environments.',
+  },
+  {
+    title: 'Aether Dynamics',
+    category: 'Commercial' as Category,
+    role: 'Compositing Lead',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
+    year: '2025',
+    description: 'High-end automotive commercial with fluid simulations and particle systems.',
+  },
+  {
+    title: 'Neon Horizon',
+    category: 'Game' as Category,
+    role: 'Cinematic VFX',
+    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80',
+    year: '2025',
+    description: 'Cyberpunk game cinematics featuring holographic effects and neon environments.',
+  },
+  {
+    title: 'The Last Signal',
+    category: 'Film' as Category,
+    role: 'Environment TD',
+    image: 'https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=800&q=80',
+    year: '2024',
+    description: 'Sci-fi thriller with alien planet environments and atmospheric effects.',
+  },
+  {
+    title: 'Quantum Drive',
+    category: 'Commercial' as Category,
+    role: 'FX Supervisor',
+    image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800&q=80',
+    year: '2024',
+    description: 'Tech product launch with abstract particle simulations and light trails.',
+  },
+  {
+    title: 'Phantom Protocol',
+    category: 'Game' as Category,
+    role: 'VFX Artist',
+    image: 'https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=800&q=80',
+    year: '2024',
+    description: 'Action game with explosive effects, magic systems, and environmental destruction.',
+  },
+  {
+    title: 'Crimson Eclipse',
+    category: 'Film' as Category,
+    role: 'Senior FX Artist',
+    image: 'https://images.unsplash.com/photo-1465101162946-4377e57745c3?w=800&q=80',
+    year: '2024',
+    description: 'Fantasy epic featuring fire and water simulations with magical creatures.',
+  },
+  {
+    title: 'Aurora Motors',
+    category: 'Commercial' as Category,
+    role: 'Lead Compositor',
+    image: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800&q=80',
+    year: '2024',
+    description: 'Luxury car reveal with dynamic lighting, reflections, and environment integration.',
+  },
+  {
+    title: 'Echoes of War',
+    category: 'Game' as Category,
+    role: 'FX Lead',
+    image: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&q=80',
+    year: '2023',
+    description: 'Military FPS cinematics with realistic explosions and debris simulations.',
+  },
+  {
+    title: 'Nebula Rising',
+    category: 'Film' as Category,
+    role: 'FX Artist',
+    image: 'https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=800&q=80',
+    year: '2023',
+    description: 'Space opera with volumetric nebulae, asteroid fields, and ship destruction.',
+  },
+  {
+    title: 'Titan Energy',
+    category: 'Commercial' as Category,
+    role: 'VFX Artist',
+    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80',
+    year: '2023',
+    description: 'Energy drink commercial with electric arcs, plasma effects, and speed trails.',
+  },
+  {
+    title: 'Realm of Shadows',
+    category: 'Game' as Category,
+    role: 'Cinematic Artist',
+    image: 'https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=800&q=80',
+    year: '2023',
+    description: 'Dark fantasy game with smoke, fog, and ethereal magic effects.',
+  },
+  {
+    title: 'Arctic Expedition',
+    category: 'Film' as Category,
+    role: 'Environment FX',
+    image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&q=80',
+    year: '2023',
+    description: 'Survival thriller with blizzard simulations, ice fracturing, and aurora effects.',
+  },
+  {
+    title: 'Velocity X',
+    category: 'Commercial' as Category,
+    role: 'Motion Graphics',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    year: '2022',
+    description: 'Sports brand campaign with dynamic motion trails and impact effects.',
+  },
+  {
+    title: 'Eternal Conquest',
+    category: 'Game' as Category,
+    role: 'Senior VFX',
+    image: 'https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?w=800&q=80',
+    year: '2022',
+    description: 'Strategy game cinematics with large-scale battle effects and magic systems.',
+  },
+  {
+    title: 'Deep Impact',
+    category: 'Film' as Category,
+    role: 'Destruction FX',
+    image: 'https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=800&q=80',
+    year: '2022',
+    description: 'Disaster film with building collapses, floods, and pyrotechnic simulations.',
+  },
+  {
+    title: 'Luxe Cosmetics',
+    category: 'Commercial' as Category,
+    role: 'Beauty VFX',
+    image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80',
+    year: '2022',
+    description: 'High-end beauty campaign with liquid simulations and product visualization.',
+  },
+  {
+    title: 'Cyber Nexus',
+    category: 'Game' as Category,
+    role: 'Tech VFX',
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80',
+    year: '2022',
+    description: 'Hacking game with digital glitch effects, data streams, and UI animations.',
+  },
+];
+
 const ITEMS_PER_PAGE = 6;
 
 export default function Projects() {
-  const [activeCategory, setActiveCategory] = useState<FilterCategory>('All');
+  const [activeCategory, setActiveCategory] = useState<Category>('All');
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -28,17 +174,13 @@ export default function Projects() {
   const displayedProjects = filteredProjects.slice(0, visibleCount);
   const hasMore = visibleCount < filteredProjects.length;
 
-  const handleCategoryChange = (category: FilterCategory) => {
+  const handleCategoryChange = (category: Category) => {
     setActiveCategory(category);
     setVisibleCount(ITEMS_PER_PAGE);
   };
 
   const loadMore = () => {
     setVisibleCount(prev => Math.min(prev + ITEMS_PER_PAGE, filteredProjects.length));
-  };
-
-  const handleViewProject = (projectId: string) => {
-    window.open(`/project/${projectId}`, '_blank');
   };
 
   return (
@@ -188,23 +330,28 @@ export default function Projects() {
                   />
                   
                   {/* View button with magnetic effect */}
-                  <motion.button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleViewProject(project.id);
+                  <motion.div 
+                    className="absolute inset-0 flex items-center justify-center"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ 
+                      opacity: hoveredIndex === i ? 1 : 0,
+                      scale: hoveredIndex === i ? 1 : 0.5
                     }}
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-bg-deep font-medium text-sm cursor-pointer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.3, type: 'spring', bounce: 0.4 }}
                   >
-                    View Project 
-                    <motion.span
-                      animate={{ x: hoveredIndex === i ? [0, 4, 0] : 0 }}
-                      transition={{ duration: 0.6, repeat: Infinity }}
+                    <motion.div 
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-bg-deep font-medium text-sm"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <ArrowUpRight size={14} />
-                    </motion.span>
-                  </motion.button>
+                      View Project 
+                      <motion.span
+                        animate={{ x: hoveredIndex === i ? [0, 4, 0] : 0 }}
+                        transition={{ duration: 0.6, repeat: Infinity }}
+                      >
+                        <ArrowUpRight size={14} />
+                      </motion.span>
+                    </motion.div>
                   </motion.div>
 
                   {/* Animated border on hover */}
