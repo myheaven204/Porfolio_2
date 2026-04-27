@@ -21,6 +21,7 @@ export interface Project {
   solution?: string;
   gallery?: ProjectImage[];
   videoUrl?: string;
+  previewVideo?: string;
   behindTheScenes?: string;
   awards?: string[];
   testimonial?: {
@@ -37,6 +38,7 @@ export const PROJECTS: Project[] = [
     category: 'Film',
     role: 'Lead FX Artist',
     image: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800&q=80',
+    previewVideo: 'https://media.w3.org/cc0-video/big_buck_bunny_720p_30s.mp4',
     year: '2026',
     description: 'Epic space adventure with massive destruction sequences and nebula environments.',
     client: 'Universal Pictures',
@@ -66,6 +68,7 @@ export const PROJECTS: Project[] = [
     category: 'Commercial',
     role: 'Compositing Lead',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
+    previewVideo: 'https://media.w3.org/cc0-video/big_buck_bunny_720p_30s.mp4',
     year: '2025',
     description: 'High-end automotive commercial with fluid simulations and particle systems.',
     client: 'Mercedes-Benz',
@@ -91,6 +94,7 @@ export const PROJECTS: Project[] = [
     category: 'Game',
     role: 'Cinematic VFX',
     image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80',
+    previewVideo: 'https://media.w3.org/cc0-video/big_buck_bunny_720p_30s.mp4',
     year: '2025',
     description: 'Cyberpunk game cinematics featuring holographic effects and neon environments.',
     client: 'CD Projekt Red',

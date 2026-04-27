@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { ArrowUpRight, Film, Tv, Gamepad2, ChevronDown } from 'lucide-react';
+import { ArrowUpRight, Film, Tv, Gamepad2, ChevronDown, Play } from 'lucide-react';
 import { PROJECTS, Category } from '../data/projects';
 
 type FilterCategory = 'All' | Category;
@@ -20,6 +20,7 @@ export default function Projects() {
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
   const isInView = useInView(containerRef, { once: true, margin: '-100px' });
   const navigate = useNavigate();
 
@@ -43,7 +44,23 @@ export default function Projects() {
     navigate(`/project/${projectId}`);
   };
 
-  return (
+  const handleMouseEnter = (index: number, project: typeof PROJECTS[0]) => {
+    setHoveredIndex(index);
+    if (project.previewVideo && videoRefs.current[index]) {
+      videoRefs.current[index]?.play().catch((err) => {
+        console.log('[v0] Video autoplay failed:', err);
+      });
+    }
+  };
+
+  const handleMouseLeave = (index: number) => {
+    setHoveredIndex(null);
+    if (videoRefs.current[index]) {
+      videoRefs.current[index]!.pause();
+      videoRefs.current[index]!.currentTime = 0;
+    }
+  };
+
     <section id="work" className="bg-bg py-24 md:py-32 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16">
         {/* Header */}
@@ -153,22 +170,63 @@ export default function Projects() {
                 exit={{ opacity: 0, scale: 0.9, y: -20 }}
                 whileHover={{ y: -10 }}
                 className="group relative rounded-xl overflow-hidden bg-surface border border-stroke cursor-pointer"
-                onMouseEnter={() => setHoveredIndex(i)}
-                onMouseLeave={() => setHoveredIndex(null)}
+                onMouseEnter={() => handleMouseEnter(i, project)}
+                onMouseLeave={() => handleMouseLeave(i)}
                 onClick={() => handleProjectClick(project.id)}
               >
                 {/* Image */}
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <motion.img
-                    src={project.image}
-                    alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    animate={{ 
-                      scale: hoveredIndex === i ? 1.15 : 1,
-                      filter: hoveredIndex === i ? 'brightness(0.7)' : 'brightness(1)'
-                    }}
-                    transition={{ duration: 0.6 }}
-                  />
+                  {project.previewVideo ? (
+                    <>
+                      {/* Video preview - shown on hover */}
+                      <video
+                        ref={(el) => {
+                          if (el) videoRefs.current[i] = el;
+                        }}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        loop
+                        muted
+                        playsInline
+                      >
+                        <source src={project.previewVideo} type="video/mp4" />
+                      </video>
+                      
+                      {/* Image - shown as default */}
+                      <motion.img
+                        src={project.image}
+                        alt={project.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        animate={{ 
+                          opacity: hoveredIndex === i ? 0 : 1,
+                          scale: hoveredIndex === i ? 1.15 : 1,
+                        }}
+                        transition={{ duration: 0.6 }}
+                      />
+
+                      {/* Play indicator when video available */}
+                      <motion.div
+                        className="absolute inset-0 flex items-center justify-center z-5"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: hoveredIndex === i ? 0 : 1 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center border border-accent/50">
+                          <Play size={20} className="text-accent fill-accent" />
+                        </div>
+                      </motion.div>
+                    </>
+                  ) : (
+                    <motion.img
+                      src={project.image}
+                      alt={project.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      animate={{ 
+                        scale: hoveredIndex === i ? 1.15 : 1,
+                        filter: hoveredIndex === i ? 'brightness(0.7)' : 'brightness(1)'
+                      }}
+                      transition={{ duration: 0.6 }}
+                    />
+                  )}
                   
                   {/* Category badge */}
                   <motion.div 
