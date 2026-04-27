@@ -7,19 +7,24 @@ export default {
     extend: {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
-        display: ['"Instrument Serif"', 'serif'],
+        display: ['"Bebas Neue"', 'sans-serif'],
       },
       colors: {
         bg: 'hsl(var(--bg))',
+        'bg-deep': 'hsl(var(--bg-deep))',
         surface: 'hsl(var(--surface))',
+        'surface-elevated': 'hsl(var(--surface-elevated))',
         'text-primary': 'hsl(var(--text))',
         muted: 'hsl(var(--muted))',
         stroke: 'hsl(var(--stroke))',
+        accent: 'hsl(var(--accent))',
+        'accent-light': 'hsl(var(--accent-light))',
       },
       animation: {
         'scroll-down': 'scroll-down 1.5s ease-in-out infinite',
         'role-fade-in': 'role-fade-in 0.4s ease-out',
         'gradient-shift': 'gradient-shift 6s ease infinite',
+        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
       },
       keyframes: {
         'scroll-down': {
@@ -34,6 +39,10 @@ export default {
           '0%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
           '100%': { backgroundPosition: '0% 50%' },
+        },
+        'pulse-glow': {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(232, 164, 0, 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgba(232, 164, 0, 0.5)' },
         },
       },
     },

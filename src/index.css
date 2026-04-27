@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,11 +6,14 @@
 
 :root {
   --bg: 0 0% 4%;
-  --surface: 0 0% 8%;
+  --bg-deep: 0 0% 2.5%;
+  --surface: 0 0% 7%;
+  --surface-elevated: 0 0% 10%;
   --text: 0 0% 96%;
-  --muted: 0 0% 53%;
-  --stroke: 0 0% 12%;
-  --accent: 0 0% 96%;
+  --muted: 0 0% 55%;
+  --stroke: 0 0% 15%;
+  --accent: 43 100% 46%;
+  --accent-light: 43 100% 56%;
 }
 
 html {
@@ -24,13 +27,22 @@ body {
 
 @layer utilities {
   .accent-gradient {
-    background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+    background: linear-gradient(90deg, hsl(43 100% 46%) 0%, hsl(35 100% 50%) 100%);
   }
 
-  .accent-gradient-border {
-    background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
-    background-size: 200% 200%;
-    animation: gradient-shift 6s ease infinite;
+  .accent-gradient-text {
+    background: linear-gradient(90deg, hsl(43 100% 46%) 0%, hsl(35 100% 50%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .cinematic-vignette {
+    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.8);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 40px rgba(232, 164, 0, 0.3);
   }
 }
 
@@ -50,10 +62,37 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(232, 164, 0, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(232, 164, 0, 0.5); }
+}
+
 .animate-scroll-down {
   animation: scroll-down 1.5s ease-in-out infinite;
 }
 
 .animate-role-fade-in {
   animation: role-fade-in 0.4s ease-out;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(0 0% 4%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(0 0% 20%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(43 100% 46%);
 }

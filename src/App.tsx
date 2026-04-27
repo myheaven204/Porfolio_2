@@ -3,10 +3,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Works from './components/Works';
-import Journal from './components/Journal';
-import Explorations from './components/Explorations';
-import Stats from './components/Stats';
+import Showreel from './components/Showreel';
+import Projects from './components/Projects';
+import Breakdown from './components/Breakdown';
+import Skills from './components/Skills';
+import About from './components/About';
 import Contact from './components/Contact';
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const sections = ['home', 'work', 'journal', 'explorations', 'stats', 'contact'];
+    const sections = ['home', 'showreel', 'work', 'breakdown', 'skills', 'about', 'contact'];
 
     const observer = new IntersectionObserver(
       entries => {
@@ -52,10 +53,11 @@ function App() {
           <Navbar activeSection={activeSection} />
           <main>
             <Hero />
-            <Works />
-            <Journal />
-            <Explorations />
-            <Stats />
+            <Showreel />
+            <Projects />
+            <Breakdown />
+            <Skills />
+            <About />
             <Contact />
           </main>
         </motion.div>

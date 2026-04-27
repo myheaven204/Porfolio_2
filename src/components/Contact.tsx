@@ -1,10 +1,16 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { motion } from 'framer-motion';
-import HeroVideo from './HeroVideo';
+import { Mail, Linkedin, Instagram, Video, Palette } from 'lucide-react';
 
-const SOCIALS = ['Twitter', 'LinkedIn', 'Dribbble', 'GitHub'];
-const MARQUEE_TEXT = 'BUILDING THE FUTURE • ';
+const SOCIALS = [
+  { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://linkedin.com' },
+  { name: 'ArtStation', icon: <Palette size={18} />, url: 'https://artstation.com' },
+  { name: 'Instagram', icon: <Instagram size={18} />, url: 'https://instagram.com' },
+  { name: 'Vimeo', icon: <Video size={18} />, url: 'https://vimeo.com' },
+];
+
+const MARQUEE_TEXT = 'AVAILABLE FOR FREELANCE ';
 
 export default function Contact() {
   const marqueeRef = useRef<HTMLDivElement>(null);
@@ -15,7 +21,7 @@ export default function Contact() {
 
     const tween = gsap.to(el, {
       xPercent: -50,
-      duration: 40,
+      duration: 30,
       ease: 'none',
       repeat: -1,
     });
@@ -24,23 +30,27 @@ export default function Contact() {
   }, []);
 
   return (
-    <footer id="contact" className="bg-bg pt-16 md:pt-20 pb-8 md:pb-12 overflow-hidden relative">
-      {/* Background video */}
-      <div className="absolute inset-0">
-        <HeroVideo flip overlay="bg-black/60" />
-      </div>
+    <footer id="contact" className="bg-bg-deep pt-20 md:pt-32 pb-8 overflow-hidden relative">
+      {/* Cinematic vignette */}
+      <div className="absolute inset-0 cinematic-vignette pointer-events-none" />
+      
+      {/* Subtle grid */}
+      <div 
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(232, 164, 0, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(232, 164, 0, 0.5) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+        }}
+      />
 
-      {/* Fade top */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-bg to-transparent z-10 pointer-events-none" />
-
-      <div className="relative z-20">
+      <div className="relative z-10">
         {/* Marquee */}
-        <div className="overflow-hidden mb-16 md:mb-24">
+        <div className="overflow-hidden mb-16 md:mb-24 border-y border-stroke/30 py-4">
           <div ref={marqueeRef} className="flex whitespace-nowrap" style={{ width: 'max-content' }}>
             {Array.from({ length: 20 }, (_, i) => (
               <span
                 key={i}
-                className="text-4xl md:text-6xl lg:text-7xl font-display italic text-text-primary/20 select-none px-4"
+                className="text-4xl md:text-6xl lg:text-7xl font-display text-accent/20 select-none px-4"
               >
                 {MARQUEE_TEXT}
               </span>
@@ -56,41 +66,61 @@ export default function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-px bg-stroke" />
-            <span className="text-xs text-muted uppercase tracking-[0.3em]">Let's Talk</span>
-            <div className="w-8 h-px bg-stroke" />
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-12 h-px bg-accent/50" />
+            <span className="text-xs text-accent uppercase tracking-[0.4em] font-medium">Get in Touch</span>
+            <div className="w-12 h-px bg-accent/50" />
           </div>
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-display italic text-text-primary mb-10 leading-[0.9]">
-            Have a project?
+          
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-display text-text-primary mb-6 tracking-wide">
+            LET&apos;S CREATE
           </h2>
+          <h3 className="text-4xl md:text-6xl lg:text-7xl font-display text-accent mb-10 tracking-wide">
+            SOMETHING EPIC
+          </h3>
+
+          <p className="text-muted max-w-md mx-auto mb-10">
+            Have a project in mind? Looking for a VFX artist to bring your vision to life? 
+            I&apos;d love to hear from you.
+          </p>
+
           <a
-            href="mailto:hello@michaelsmith.com"
-            className="inline-flex items-center gap-2 text-base text-text-primary group relative rounded-full px-8 py-4 border border-stroke hover:border-transparent transition-all duration-300"
+            href="mailto:alex@vfxartist.com"
+            className="group inline-flex items-center gap-3 text-lg text-text-primary relative rounded-full px-8 py-4 border-2 border-accent/50 hover:border-accent transition-all duration-300"
           >
-            <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 accent-gradient" />
-            <span className="absolute inset-[1px] rounded-full bg-bg/80" />
-            <span className="relative z-10">hello@michaelsmith.com</span>
+            <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
+            <Mail size={20} className="text-accent" />
+            <span className="relative z-10">alex@vfxartist.com</span>
           </a>
         </motion.div>
 
         {/* Footer bar */}
-        <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
-          <div className="border-t border-stroke pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16">
+          <div className="border-t border-stroke pt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
             {/* Socials */}
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
               {SOCIALS.map(social => (
                 <a
-                  key={social}
-                  href="#"
-                  className="text-xs text-muted hover:text-text-primary transition-colors duration-200 uppercase tracking-[0.15em]"
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-full border border-stroke hover:border-accent/50 text-muted hover:text-accent transition-all duration-300"
+                  aria-label={social.name}
                 >
-                  {social}
+                  {social.icon}
                 </a>
               ))}
             </div>
 
-            {/* Available dot */}
+            {/* Copyright */}
+            <div className="flex items-center gap-6 text-xs text-muted">
+              <span>&copy; 2026 Alex Chen</span>
+              <span className="w-1 h-1 rounded-full bg-stroke" />
+              <span>VFX Artist</span>
+            </div>
+
+            {/* Available status */}
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
@@ -101,6 +131,10 @@ export default function Contact() {
           </div>
         </div>
       </div>
+
+      {/* Decorative film frame */}
+      <div className="absolute bottom-8 left-8 w-16 h-16 border-l-2 border-b-2 border-accent/20" />
+      <div className="absolute bottom-8 right-8 w-16 h-16 border-r-2 border-b-2 border-accent/20" />
     </footer>
   );
 }
