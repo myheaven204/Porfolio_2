@@ -27,12 +27,7 @@ const SOFTWARE = [
   },
 ];
 
-const EXPERTISE = [
-  { area: 'FX Simulations', skills: ['Pyro', 'Fluids', 'Destruction', 'Particles'] },
-  { area: 'Compositing', skills: ['Keying', 'Roto', 'Paint', 'Integration'] },
-  { area: 'Environment', skills: ['Matte Painting', 'Set Extension', 'CG Integration'] },
-  { area: 'Pipeline', skills: ['Python', 'VEX', 'Tool Development', 'Automation'] },
-];
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -66,7 +61,7 @@ export default function Skills() {
 
         {/* Software grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-20"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -111,44 +106,7 @@ export default function Skills() {
           ))}
         </motion.div>
 
-        {/* Expertise areas */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-        >
-          <h3 className="text-2xl font-display text-text-primary tracking-wide text-center mb-10">
-            AREAS OF EXPERTISE
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {EXPERTISE.map((area, i) => (
-              <motion.div
-                key={area.area}
-                className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <h4 className="text-lg font-display text-accent tracking-wide mb-4">
-                  {area.area}
-                </h4>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {area.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1.5 rounded-full bg-surface border border-stroke text-xs text-muted hover:text-text-primary hover:border-accent/30 transition-all duration-300 cursor-default"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        
       </div>
     </section>
   );
