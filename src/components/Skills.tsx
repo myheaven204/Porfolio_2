@@ -2,40 +2,28 @@ import { motion } from 'framer-motion';
 
 const SOFTWARE = [
   {
-    name: 'Houdini',
-    category: 'FX & Simulation',
-    level: 95,
-    description: 'Procedural FX, simulations, and tool development',
-  },
-  {
-    name: 'Nuke',
-    category: 'Compositing',
-    level: 90,
-    description: 'Node-based compositing and color grading',
-  },
-  {
     name: 'After Effects',
-    category: 'Motion Graphics',
-    level: 85,
-    description: 'Motion design and quick turnaround projects',
+    category: 'Motion Graphics & VFX',
+    level: 90,
+    description: 'Compositing, motion design, and visual effects',
   },
   {
-    name: 'Maya',
-    category: '3D Animation',
-    level: 88,
-    description: 'Character animation and rigging workflows',
-  },
-  {
-    name: 'Blender',
-    category: '3D Generalist',
+    name: 'PFtrack',
+    category: 'Matchmove & Tracking',
     level: 80,
-    description: 'Modeling, sculpting, and quick visualization',
+    description: '3D camera tracking and object tracking',
   },
   {
-    name: 'DaVinci Resolve',
-    category: 'Color & Edit',
-    level: 75,
-    description: 'Color grading and video editing',
+    name: 'Premiere Pro',
+    category: 'Video Editing',
+    level: 70,
+    description: 'Video editing and post-production',
+  },
+  {
+    name: 'Photoshop',
+    category: 'Image Editing',
+    level: 60,
+    description: 'Photo manipulation and texture work',
   },
 ];
 
@@ -78,7 +66,7 @@ export default function Skills() {
 
         {/* Software grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-20"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-20"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
