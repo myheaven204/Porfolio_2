@@ -7,6 +7,7 @@ import Showreel from './components/Showreel';
 import Projects from './components/Projects';
 import Breakdown from './components/Breakdown';
 import Skills from './components/Skills';
+import Clients from './components/Clients';
 import About from './components/About';
 import Contact from './components/Contact';
 
@@ -57,6 +58,7 @@ function App() {
             <Projects />
             <Breakdown />
             <Skills />
+            <Clients />
             <About />
             <Contact />
           </main>
