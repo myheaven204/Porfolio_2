@@ -145,7 +145,7 @@ function YouTubeEmbed({ youtubeId, title }: { youtubeId: string; title: string }
   );
 }
 
-function VideoCard({
+function StepCard({
   step,
   index,
   isActive,
@@ -169,13 +169,13 @@ function VideoCard({
     });
   }, []);
 
-  const rotateX = isHovered ? ((mousePos.y / 120) - 0.5) * -8 : 0;
-  const rotateY = isHovered ? ((mousePos.x / 280) - 0.5) * 8 : 0;
+  const rotateX = isHovered ? ((mousePos.y / 200) - 0.5) * -6 : 0;
+  const rotateY = isHovered ? ((mousePos.x / cardRef.current?.offsetWidth || 300) - 0.5) * 6 : 0;
 
   return (
     <motion.div
       ref={cardRef}
-      className={`relative cursor-pointer rounded-2xl overflow-hidden border transition-all duration-500 ${
+      className={`relative cursor-pointer rounded-xl overflow-hidden border transition-all duration-500 ${
         isActive
           ? 'border-accent/60 shadow-[0_0_30px_rgba(232,164,0,0.15)]'
           : 'border-stroke hover:border-accent/30'
@@ -190,7 +190,7 @@ function VideoCard({
       onClick={onClick}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
+      transition={{ delay: index * 0.08, duration: 0.5 }}
     >
       <motion.div
         style={{
@@ -206,7 +206,7 @@ function VideoCard({
           <motion.div
             className="absolute inset-0 z-10 pointer-events-none"
             style={{
-              background: `radial-gradient(circle 120px at ${mousePos.x}px ${mousePos.y}px, rgba(232, 164, 0, 0.12) 0%, transparent 100%)`,
+              background: `radial-gradient(circle 100px at ${mousePos.x}px ${mousePos.y}px, rgba(232, 164, 0, 0.1) 0%, transparent 100%)`,
             }}
           />
         )}
@@ -216,74 +216,75 @@ function VideoCard({
           <img
             src={`https://img.youtube.com/vi/${step.youtubeId}/hqdefault.jpg`}
             alt={step.label}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700"
+            style={{ transform: isHovered ? 'scale(1.05)' : 'scale(1)' }}
             loading="lazy"
           />
 
           {/* Dark overlay */}
-          <div className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${isActive ? 'opacity-0' : 'opacity-40'}`} />
+          <div className={`absolute inset-0 transition-opacity duration-300 ${isActive ? 'bg-black/10' : 'bg-black/40'}`} />
 
           {/* Play button */}
           <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isActive ? 'opacity-0' : 'opacity-100'}`}>
-            <div className="w-12 h-12 rounded-full bg-accent/90 flex items-center justify-center shadow-lg shadow-accent/30 backdrop-blur-sm">
-              <Play size={18} className="text-bg-deep ml-0.5" fill="currentColor" />
+            <div className="w-10 h-10 rounded-full bg-accent/90 flex items-center justify-center shadow-lg shadow-accent/30">
+              <Play size={14} className="text-bg-deep ml-0.5" fill="currentColor" />
             </div>
           </div>
 
           {/* Active playing indicator */}
           {isActive && (
-            <div className="absolute top-3 left-3 flex items-center gap-2 px-3 py-1 rounded-full bg-accent/90 backdrop-blur-sm">
+            <div className="absolute top-2 left-2 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-accent/90 backdrop-blur-sm">
               <div className="flex items-center gap-0.5">
                 <motion.div
-                  className="w-1 h-3 bg-bg-deep rounded-full"
+                  className="w-0.5 h-2.5 bg-bg-deep rounded-full"
                   animate={{ scaleY: [1, 0.4, 1] }}
                   transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
                 />
                 <motion.div
-                  className="w-1 h-3 bg-bg-deep rounded-full"
+                  className="w-0.5 h-2.5 bg-bg-deep rounded-full"
                   animate={{ scaleY: [0.4, 1, 0.4] }}
-                  transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
+                  transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }}
                 />
                 <motion.div
-                  className="w-1 h-3 bg-bg-deep rounded-full"
+                  className="w-0.5 h-2.5 bg-bg-deep rounded-full"
                   animate={{ scaleY: [1, 0.4, 1] }}
-                  transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
+                  transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }}
                 />
               </div>
-              <span className="text-[10px] text-bg-deep font-medium uppercase tracking-wider">Playing</span>
+              <span className="text-[9px] text-bg-deep font-medium uppercase tracking-wider">Playing</span>
             </div>
           )}
 
           {/* Film frame corners */}
-          <div className="absolute top-2 left-2 w-4 h-4 border-l border-t border-accent/30" />
-          <div className="absolute top-2 right-2 w-4 h-4 border-r border-t border-accent/30" />
-          <div className="absolute bottom-2 left-2 w-4 h-4 border-l border-b border-accent/30" />
-          <div className="absolute bottom-2 right-2 w-4 h-4 border-r border-b border-accent/30" />
+          <div className="absolute top-1.5 left-1.5 w-3 h-3 border-l border-t border-accent/30" />
+          <div className="absolute top-1.5 right-1.5 w-3 h-3 border-r border-t border-accent/30" />
+          <div className="absolute bottom-1.5 left-1.5 w-3 h-3 border-l border-b border-accent/30" />
+          <div className="absolute bottom-1.5 right-1.5 w-3 h-3 border-r border-b border-accent/30" />
         </div>
 
         {/* Info bar */}
-        <div className="p-4 bg-surface/50 backdrop-blur-sm">
-          <div className="flex items-center gap-3">
-            <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-300 ${
+        <div className="p-3 bg-surface/60 backdrop-blur-sm">
+          <div className="flex items-center gap-2.5">
+            <div className={`flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center transition-colors duration-300 ${
               isActive ? 'bg-accent text-bg-deep' : 'bg-surface-elevated text-muted'
             }`}>
-              <span className="font-display text-sm">{String(index + 1).padStart(2, '0')}</span>
+              <span className="font-display text-xs">{String(index + 1).padStart(2, '0')}</span>
             </div>
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5">
                 <span className={`transition-colors duration-300 ${isActive ? 'text-accent' : 'text-muted'}`}>
-                  {STEP_ICONS[step.label] || <Sparkles size={14} />}
+                  {STEP_ICONS[step.label] || <Sparkles size={12} />}
                 </span>
-                <h4 className={`text-sm font-medium transition-colors duration-300 truncate ${
+                <h4 className={`text-xs font-medium transition-colors duration-300 truncate ${
                   isActive ? 'text-text-primary' : 'text-muted'
                 }`}>
                   {step.label}
                 </h4>
               </div>
-              <p className="text-xs text-muted/60 truncate mt-0.5">{step.description}</p>
+              <p className="text-[10px] text-muted/50 truncate mt-0.5">{step.description}</p>
             </div>
             {step.timestamp && (
-              <span className="flex-shrink-0 text-[10px] text-muted/50 font-mono bg-surface-elevated px-2 py-1 rounded">
+              <span className="flex-shrink-0 text-[9px] text-muted/40 font-mono bg-surface-elevated px-1.5 py-0.5 rounded">
                 {step.timestamp}
               </span>
             )}
@@ -389,104 +390,99 @@ export default function Breakdown() {
           </motion.h3>
         </AnimatePresence>
 
-        {/* Main content */}
-        <div className="grid lg:grid-cols-5 gap-6">
-          {/* Video player - larger */}
-          <div className="lg:col-span-3">
-            <motion.div
-              className="relative aspect-video bg-surface rounded-2xl overflow-hidden border border-stroke shadow-2xl shadow-black/30"
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
+        {/* Video player */}
+        <motion.div
+          className="relative aspect-video bg-surface rounded-2xl overflow-hidden border border-stroke shadow-2xl shadow-black/30 mb-6"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {isPlaying ? (
+            <YouTubeEmbed youtubeId={currentStep.youtubeId} title={`${currentStep.label} - ${currentBreakdown.title}`} />
+          ) : (
+            <div
+              className="absolute inset-0 cursor-pointer group"
+              onClick={() => setIsPlaying(true)}
             >
-              {isPlaying ? (
-                <YouTubeEmbed youtubeId={currentStep.youtubeId} title={`${currentStep.label} - ${currentBreakdown.title}`} />
-              ) : (
-                <div
-                  className="absolute inset-0 cursor-pointer group"
-                  onClick={() => setIsPlaying(true)}
-                >
-                  <img
-                    src={`https://img.youtube.com/vi/${currentStep.youtubeId}/maxresdefault.jpg`}
-                    alt={currentStep.label}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-300" />
-
-                  {/* Play button */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      className="w-20 h-20 rounded-full bg-accent/90 flex items-center justify-center shadow-2xl shadow-accent/40"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Play size={28} className="text-bg-deep ml-1" fill="currentColor" />
-                    </motion.div>
-                  </div>
-
-                  {/* Step label overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
-                    <div className="flex items-center gap-2 text-accent mb-1">
-                      {STEP_ICONS[currentStep.label] || <Sparkles size={16} />}
-                      <span className="text-sm font-medium uppercase tracking-wider">{currentStep.label}</span>
-                    </div>
-                    <p className="text-sm text-white/70">{currentStep.description}</p>
-                  </div>
-                </div>
-              )}
-
-              {/* Film frame corners */}
-              <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-accent/30 pointer-events-none" />
-              <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-accent/30 pointer-events-none" />
-              <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-accent/30 pointer-events-none" />
-              <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-accent/30 pointer-events-none" />
-
-              {/* Open in YouTube link */}
-              <a
-                href={`https://www.youtube.com/watch?v=${currentStep.youtubeId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/50 backdrop-blur-sm text-white/60 hover:text-accent transition-colors duration-200"
-                onClick={e => e.stopPropagation()}
-              >
-                <ExternalLink size={14} />
-              </a>
-            </motion.div>
-
-            {/* Step progress bar */}
-            <div className="flex items-center gap-2 mt-4">
-              {currentBreakdown.steps.map((step, i) => (
-                <button
-                  key={step.label}
-                  onClick={() => selectStep(i)}
-                  className="flex-1 group"
-                >
-                  <div className={`h-1 rounded-full transition-all duration-500 ${
-                    i <= activeStep ? 'bg-accent' : 'bg-stroke group-hover:bg-muted'
-                  }`} />
-                  <span className={`text-[10px] mt-1 block transition-colors duration-300 ${
-                    i === activeStep ? 'text-accent' : 'text-muted/40 group-hover:text-muted'
-                  }`}>
-                    {step.label}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Step cards */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
-            {currentBreakdown.steps.map((step, index) => (
-              <VideoCard
-                key={`${activeBreakdown}-${step.label}`}
-                step={step}
-                index={index}
-                isActive={activeStep === index}
-                onClick={() => selectStep(index)}
+              <img
+                src={`https://img.youtube.com/vi/${currentStep.youtubeId}/maxresdefault.jpg`}
+                alt={currentStep.label}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-            ))}
-          </div>
+              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-300" />
+
+              {/* Play button */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div
+                  className="w-20 h-20 rounded-full bg-accent/90 flex items-center justify-center shadow-2xl shadow-accent/40"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Play size={28} className="text-bg-deep ml-1" fill="currentColor" />
+                </motion.div>
+              </div>
+
+              {/* Step label overlay */}
+              <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
+                <div className="flex items-center gap-2 text-accent mb-1">
+                  {STEP_ICONS[currentStep.label] || <Sparkles size={16} />}
+                  <span className="text-sm font-medium uppercase tracking-wider">{currentStep.label}</span>
+                </div>
+                <p className="text-sm text-white/70">{currentStep.description}</p>
+              </div>
+            </div>
+          )}
+
+          {/* Film frame corners */}
+          <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-accent/30 pointer-events-none" />
+          <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-accent/30 pointer-events-none" />
+          <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-accent/30 pointer-events-none" />
+          <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-accent/30 pointer-events-none" />
+
+          {/* Open in YouTube link */}
+          <a
+            href={`https://www.youtube.com/watch?v=${currentStep.youtubeId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/50 backdrop-blur-sm text-white/60 hover:text-accent transition-colors duration-200"
+            onClick={e => e.stopPropagation()}
+          >
+            <ExternalLink size={14} />
+          </a>
+        </motion.div>
+
+        {/* Step progress bar */}
+        <div className="flex items-center gap-2 mb-6">
+          {currentBreakdown.steps.map((step, i) => (
+            <button
+              key={step.label}
+              onClick={() => selectStep(i)}
+              className="flex-1 group"
+            >
+              <div className={`h-1 rounded-full transition-all duration-500 ${
+                i <= activeStep ? 'bg-accent' : 'bg-stroke group-hover:bg-muted'
+              }`} />
+              <span className={`text-[10px] mt-1 block transition-colors duration-300 text-center ${
+                i === activeStep ? 'text-accent' : 'text-muted/40 group-hover:text-muted'
+              }`}>
+                {step.label}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* Step cards - horizontal row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {currentBreakdown.steps.map((step, index) => (
+            <StepCard
+              key={`${activeBreakdown}-${step.label}`}
+              step={step}
+              index={index}
+              isActive={activeStep === index}
+              onClick={() => selectStep(index)}
+            />
+          ))}
         </div>
 
         {/* Project selector dots */}
