@@ -37,20 +37,7 @@ export default function Projects() {
 
   const openProjectWindow = (projectId: string) => {
     const url = `${window.location.origin}/project/${projectId}`;
-    // Open as a separate window with sizing so it feels like a dedicated detail view,
-    // and gracefully fall back to a normal new tab if the browser blocks the popup.
-    const features = [
-      'noopener',
-      'noreferrer',
-      `width=${Math.min(window.screen.availWidth, 1440)}`,
-      `height=${Math.min(window.screen.availHeight, 960)}`,
-      'resizable=yes',
-      'scrollbars=yes',
-    ].join(',');
-    const win = window.open(url, '_blank', features);
-    if (!win) {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
